@@ -1,0 +1,105 @@
+@import '~styles/variables.scss';
+
+.subnav {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-color: $color-black;
+  min-height: 35px;
+  &-column {
+    height: 48px;
+  }
+  &-menu {
+    float: right;
+    margin-bottom: 10px;
+    li {
+      float: left;
+      a {
+        display: inline-block;
+        font-size: 12px;
+        padding: 0 3px;
+        color: $color-white;
+        line-height: 35px;
+        transition: all 0.3s ease-in-out;
+      }
+      small {
+        color: $color-grey-small;
+        padding: 0 5px;
+      }
+      &:first-child:after {
+        content: "|";
+        padding-left: 13px;
+        font-size: 16px;
+        color: $color-grey-sider;
+        opacity: .15;
+      }
+    }
+    li:nth-child(2) {
+      transition: all 0.3s ease-in-out;
+      padding: 0 10px;
+    }
+    li:last-child {
+      a {
+        display: inline-block;
+        line-height: 35px;
+        min-height: 36px;
+        font-size: 13px;
+        padding: 0 19px;
+        background-color: $color-brand;
+        transition: all 0.3s ease-in-out;
+        i {
+          font-size: 18px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+.header {
+  background-color: $color-white;
+  height: 91px;
+}
+
+.brand {
+  float: left;
+}
+
+.logo {
+  display: inline-block;
+  margin-top: 27px;
+  padding: 0 15px;
+}
+
+.nav {
+  padding-top: 36px;
+  max-height: 250px;
+  float: right;
+  .nav-list {
+    height: auto;
+    float: right;
+    margin: 0;
+    padding: 0;
+    li {
+      display: block;
+      float: left;
+    }
+    li:first-child > a {
+      color: $color-brand;
+    }
+    a {
+      padding: 20px 15px 33px;
+      font-size: 14px;
+      color: $color-black;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+}
+
+.slider {
+  background-color: $color-grey-sider;
+  max-height: 500px;
+  height: 365px;
+}

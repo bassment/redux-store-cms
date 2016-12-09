@@ -1,0 +1,18 @@
+.center-vertical {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.section {
+  composes: center-vertical;
+  text-align: center;
+}
+
+.container {
+  margin: 0 auto;
+  width: 750px;
+}

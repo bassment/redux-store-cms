@@ -1,0 +1,29 @@
+// @import 'basscss/css/basscss.css';
+
+:global
+
+  * {
+    outline: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Oxygen', sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+  }
+
+  ul {
+      margin: 0;
+      padding: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+  }

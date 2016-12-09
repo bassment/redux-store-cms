@@ -1,0 +1,26 @@
+env:
+  browser: true
+  commonjs: true
+parserOptions:
+  ecmaFeatures:
+    experimentalObjectRestSpread: true
+    jsx: true
+  sourceType: module
+plugins:
+  - react
+globals:
+  angular: false
+  Chartist: false
+  d3: false
+  goog: false
+  lodash: false
+  jQuery: false
+  moment: false
+  ol: false
+  process: false
+  turf: false
+  $: false
+  _: false
+  Buffer: false
+rules:
+  "react/jsx-uses-vars": 2

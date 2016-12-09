@@ -1,0 +1,7 @@
+{
+    "preset": "google",
+    "validateIndentation": 4,
+    "maximumLineLength": 120,
+    "validateQuoteMarks": false,
+    "requireDotNotation": false
+}
