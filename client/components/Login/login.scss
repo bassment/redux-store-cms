@@ -1,5 +1,5 @@
 .login-area {
-  composes: m2 from 'basscss/css/basscss.css';
+  // composes: m2 from 'basscss/css/basscss.css';
 }
 
 .button {
@@ -19,6 +19,6 @@
 }
 
 .input {
-  composes: p0 from 'basscss/css/basscss.css';
-  composes: input from 'basscss-forms/index.css';
+  // composes: p0 from 'basscss/css/basscss.css';
+  // composes: input from 'basscss-forms/index.css';
 }

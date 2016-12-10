@@ -12,7 +12,19 @@
   text-align: center;
 }
 
-.container {
-  margin: 0 auto;
-  width: 750px;
+.clearfix {
+  composes: clearfix max-width-4 from 'basscss-layout/css/layout.css';
+  composes: mx-auto from 'basscss-margin/css/margin.css';
+}
+
+.col-6 {
+  composes: col col-6 from 'basscss-grid/css/grid.css';
+}
+
+.col-right {
+  composes: col-right from 'basscss-grid/css/grid.css';
+}
+
+.hide-on-small {
+  composes: sm-hide xs-hide from 'basscss-hide/css/hide.css';
 }

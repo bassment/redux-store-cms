@@ -1,4 +1,4 @@
-// @import 'basscss/css/basscss.css';
+@import 'basscss-basic/index.css';
 
 :global
 
@@ -7,14 +7,7 @@
     margin: 0;
     padding: 0;
   }
-
-  body {
-    font-family: 'Oxygen', sans-serif;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 400;
-  }
-
+  
   ul {
       margin: 0;
       padding: 0;

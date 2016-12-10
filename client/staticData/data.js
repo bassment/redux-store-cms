@@ -1,3 +1,26 @@
+const socialIcons = [
+    {
+        name: 'twitter',
+        link: '#'
+    },
+    {
+        name: 'facebook',
+        link: '#'
+    },
+    {
+        name: 'dribble',
+        link: '#'
+    },
+    {
+        name: 'vimeo',
+        link: '#'
+    },
+    {
+        name: 'tumblr',
+        link: '#'
+    },
+];
+
 const menuItems = [
     {
         name: 'Home',
@@ -27,6 +50,7 @@ const counterButtons = [
 ];
 
 export {
+    socialIcons,
     menuItems,
     counterButtons
 };

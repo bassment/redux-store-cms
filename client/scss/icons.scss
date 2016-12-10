@@ -1,3 +1,23 @@
+// Social Icons
+
+.icon-twitter {
+  composes: fa fa-twitter from 'font-awesome/css/font-awesome.css'
+}
+.icon-facebook {
+  composes: fa fa-facebook from 'font-awesome/css/font-awesome.css'
+}
+.icon-dribble {
+  composes: fa fa-dribbble from 'font-awesome/css/font-awesome.css'
+}
+.icon-vimeo {
+  composes: fa fa-vimeo from 'font-awesome/css/font-awesome.css'
+}
+.icon-tumblr {
+  composes: fa fa-tumblr from 'font-awesome/css/font-awesome.css'
+}
+
+// Menu Icons
+
 .icon-search {
   composes: fa fa-search from 'font-awesome/css/font-awesome.css'
 }
