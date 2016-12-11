@@ -10,6 +10,7 @@ import Helmet from 'react-helmet';
 
 import Header from './Header/header';
 import Slider from './Slider/slider';
+import Products from 'containers/Products';
 
 export default class Home extends React.Component {
     render() {
@@ -18,6 +19,7 @@ export default class Home extends React.Component {
                 <Helmet title="Shop"/>
                 <Header />
                 <Slider />
+                <Products />
             </div>
         );
     }
