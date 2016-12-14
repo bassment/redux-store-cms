@@ -7,10 +7,11 @@ const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
+const rdb = require('./server/rethinkdb');
 
 // GraphQL dependencies
 const graphqlHTTP = require('express-graphql');
-const goldberSchema = require('./server/graphql/goldberg.js');
+const schema = require('./server/graphql/products.js');
 
 // Server logic
 
@@ -38,7 +39,7 @@ if (isDeveloping) {
     app.use(express.static('public'));
 
     app.use('/graphql', graphqlHTTP({
-        schema: goldberSchema,
+        schema,
         graphiql: true
     }));
     app.use(require('./server/routes/accounts'));
@@ -60,5 +61,10 @@ app.listen(port, function onStart(err) {
     if (err) {
         console.log(err);
     }
+
+    rdb.onConnect()
+        .then(connection => console.log('RethinkDB is connected...'))
+        .catch(console.error);
+
     console.info('==> 🌎 Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port);
 });

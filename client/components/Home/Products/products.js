@@ -9,13 +9,13 @@ import {Link} from 'react-router';
 import Helmet from 'react-helmet';
 
 export default class Products extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.getProducts(
             `{
-                goldberg(id: 2) {
-                    id,
-                    character,
-                    actor
+                product(price: 200) {
+                    title,
+                    price,
+                    image
                 }
             }`
         );
@@ -23,18 +23,28 @@ export default class Products extends React.Component {
 
     render() {
         const {products, getProducts} = this.props;
-        const fetching = String(products.get('fetching'));
-        const goldberg = products.get('data').toObject();
-        const {character, actor, id} = goldberg;
+        const fetching = products.get('fetching');
+        const product = products.get('data').toObject();
+        const {title, price, image} = product;
 
         // VIEWS
 
         const viewProducts = (() => {
             return (
                 <div>
-                    <p>{character}</p>
-                    <p>{actor}</p>
-                    <p>{id}</p>
+                    <div className="thumbnail">
+                        <div className="imageWrapper">
+                            <img
+                                src="img/home/featured-collection/featured-collection-01.jpg"
+                                alt="feature-collection-image" />
+                            <div className="masking">
+                                <a href="product-grid-left-sidebar.html" className="btn viewBtn">View Products</a>
+                            </div>
+                        </div>
+                        <div className="caption">
+                            <h4>{title}</h4>
+                        </div>
+                    </div>
                 </div>
             );
         })();
@@ -43,7 +53,7 @@ export default class Products extends React.Component {
 
         return (
             <div className={styles['slider']}>
-                {viewProducts}
+                {fetching ? <p>Loading...</p> : viewProducts}
             </div>
         );
     }

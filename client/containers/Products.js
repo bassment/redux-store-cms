@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(requestProducts());
             const response =
                 API.requestProducts(products)
-                    .then(result => dispatch(receiveProducts(result)))
+                    .then(result => dispatch(receiveProducts(result.data.product)))
                     .catch(console.error);
         }
     };
