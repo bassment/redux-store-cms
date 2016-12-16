@@ -11,7 +11,7 @@ const rdb = require('./server/rethinkdb');
 
 // GraphQL dependencies
 const graphqlHTTP = require('express-graphql');
-const schema = require('./server/graphql/products.js');
+const schema = require('./server/graphql');
 
 // Server logic
 

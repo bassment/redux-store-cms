@@ -4,7 +4,8 @@ const {
     GraphQLList,
     GraphQLInt,
     GraphQLNonNull,
-    GraphQLID
+    GraphQLID,
+    GraphQLString
 } = require('graphql');
 
 const {
@@ -15,7 +16,8 @@ const {
     mutationWithClientMutationId
 } = require('graphql-relay');
 
-const {getAllProducts, getProductById} = require('../rethinkdb');
+const {getAllProducts, getProductBy} = require('../rethinkdb');
+const {getFirst} = require('../helpers');
 const {nodeField} = require('./node');
 const {productType} = require('./types');
 const {createProductMutation} = require('./mutations');
@@ -39,23 +41,34 @@ const RootQuery = new GraphQLObjectType({
         allProducts: {
             type: ProductConnection,
             description: 'List of all products',
-            args: connectionArgs,
-            resolve:  (_, args) => connectionFromPromisedArray(
-                getAllProducts(),
-                args
-            )
+            args: Object.assign(connectionArgs, {
+                orderBy: {
+                    type: GraphQLString
+                }
+            }),
+            resolve:  (_, args) => {
+                const {orderBy} = args;
+                return orderBy ? connectionFromPromisedArray(getAllProducts(orderBy), args)
+                    : connectionFromPromisedArray(getAllProducts(), args);
+            }
         },
         product: {
             type: productType,
             args: {
                 id: {
-                    type: new GraphQLNonNull(GraphQLID),
+                    type: GraphQLID,
                     description: 'Find a product by its ID'
+                },
+                price: {
+                    type: GraphQLInt,
+                    description: 'Find a product by its Price'
                 }
             },
-            resolve: (_, {id}) => {
-                return getProductById(id)
-                    .then(product => product[0]);
+            resolve: (_, {id, price}) => {
+                const type = id ? ['id', id] : price ? ['price', price] : null;
+                return type ? getProductBy(...type).then(getFirst)
+                    : Promise.reject('Please provide at least on of these: Product ID or Product Price');
+
             }
         },
     }

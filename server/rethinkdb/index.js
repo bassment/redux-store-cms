@@ -9,20 +9,31 @@ const onConnect = () => {
         });
 };
 
-const getAllProducts = (price) => {
+const getAllProducts = (order = 'ASC') => {
+    const table = r.db(db).table(tables.products);
+
+    let desideOnOrder;
+    if (order === 'ASC') {
+        desideOnOrder = table.orderBy('title');
+    } else if (order === 'DESC') {
+        desideOnOrder = table.orderBy(r.desc('title'));
+    } else {
+        return Promise.reject("orderBy argument only accepts 'ASC' or 'DESC' options");
+    }
+
     return onConnect()
         .then(connection => {
-            return r.db(db).table(tables.products)
+            return desideOnOrder
                 .run(connection);
         })
         .then(cursor => cursor.toArray());
 };
 
-const getProductById = (id) => {
+const getProductBy = (type, value) => {
     return onConnect()
         .then(connection => {
             return r.db(db).table(tables.products)
-                .filter(r.row('id').eq(id))
+                .filter(r.row(type).eq(value))
                 .run(connection);
         })
         .then(cursor => cursor.toArray());
@@ -33,7 +44,7 @@ const getObjectById = (type, id) => {
         product: getProductById
     };
 
-    return types[type](id);
+    return types[type]('id', id);
 };
 
 const createProduct = ({title, price, image}) => {
@@ -54,7 +65,7 @@ const createProduct = ({title, price, image}) => {
 module.exports = {
     onConnect,
     getAllProducts,
-    getProductById,
+    getProductBy,
     getObjectById,
     createProduct
 };
