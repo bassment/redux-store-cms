@@ -1,52 +1,72 @@
 const {
     GraphQLSchema,
     GraphQLObjectType,
-    GraphQLString,
-    GraphQLInt
+    GraphQLList,
+    GraphQLInt,
+    GraphQLNonNull,
+    GraphQLID
 } = require('graphql');
-const {getProductByPrice} = require('../rethinkdb');
 
-// GraphQL MODEL Type
+const {
+    globalIdField,
+    connectionDefinitions,
+    connectionFromPromisedArray,
+    connectionArgs,
+    mutationWithClientMutationId
+} = require('graphql-relay');
 
-const productType = new GraphQLObjectType({
-    name: "Products",
-    description: "Products of the baby store",
-    fields: {
-        title: {
-            type: GraphQLString,
-            description: "Name of the product"
-        },
-        price: {
+const {getAllProducts, getProductById} = require('../rethinkdb');
+const {nodeField} = require('./node');
+const {productType} = require('./types');
+const {createProductMutation} = require('./mutations');
+
+const {connectionType: ProductConnection} = connectionDefinitions({
+    nodeType: productType,
+    connectionFields: () => ({
+        totalCount: {
             type: GraphQLInt,
-            description: "Price of the product"
-        },
-        'image': {
-            type: GraphQLString,
-            description: "Url for the product's preview image"
+            description: 'Total number of products',
+            resolve: (conn) => conn.edges.length
         }
-    }
+    })
 });
 
-// GraphQL QUERY Type
-
-const queryType = new GraphQLObjectType({
-    name: "query",
-    description: "Product query",
+const RootQuery = new GraphQLObjectType({
+    name: "Query",
+    description: "Root query type",
     fields: {
+        node: nodeField,
+        allProducts: {
+            type: ProductConnection,
+            description: 'List of all products',
+            args: connectionArgs,
+            resolve:  (_, args) => connectionFromPromisedArray(
+                getAllProducts(),
+                args
+            )
+        },
         product: {
             type: productType,
             args: {
-                price: {
-                    type: GraphQLInt
+                id: {
+                    type: new GraphQLNonNull(GraphQLID),
+                    description: 'Find a product by its ID'
                 }
             },
-            resolve: (_, args) => getProductByPrice(args.price).then(arr => arr[0])
-        }
+            resolve: (_, {id}) => {
+                return getProductById(id)
+                    .then(product => product[0]);
+            }
+        },
     }
 });
 
-// GraphQL Schema
+const RootMutation = new GraphQLObjectType({
+    name: 'Mutation',
+    description: 'The root mutation query type.',
+    fields: {
+        createProduct: createProductMutation
+    }
+});
 
-const schema = new GraphQLSchema({query: queryType});
-
-module.exports = schema;
+module.exports = new GraphQLSchema({query: RootQuery, mutation: RootMutation});

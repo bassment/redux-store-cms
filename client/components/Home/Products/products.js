@@ -12,7 +12,7 @@ export default class Products extends React.Component {
     componentDidMount() {
         this.props.getProducts(
             `{
-                product(price: 200) {
+                product(id: "8d0c95dc-e059-4d02-a022-6f5cbbf1af67") {
                     title,
                     price,
                     image
